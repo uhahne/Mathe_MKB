@@ -7,6 +7,7 @@ class Vector2D {
     x = 0;
     y = 0;
     
+    // methods
     add(v) {
         return new Vector2D(this.x + v.x, this.y + v.y);
     }
