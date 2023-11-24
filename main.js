@@ -6,17 +6,19 @@ resizeCanvas();
 function drawStuff() {
     let cs = createAndDrawCoordinateSystem();
 
-    let vec1 = new Vector2D(-1, 3);
-    let vec2 = new Vector2D(3, 2);
-    let vec3 = vec1.add(vec2);
-    let M = vec3.scale(0.5);
+    let u = new Vector2D(1, 3);
+    let v = new Vector2D(3, 2);
+    let w = u.add(v);
+    let w2 = u.sub(v);
+    
+    //TODO let s = u.dot(v)/v.length()**2;
+    //let v2 = v.scale(s);
+    
 
-    console.log(vec1);
-    cs.drawPositionVector(vec1, "V1", true, true, "blue");
-    cs.drawPositionVector(vec2, "V2", true, true, "green");
-    cs.drawPositionVector(vec3, "V3", true, true, "red");
-    cs.drawVector(vec1, vec2, "V1", false, false, "lightblue");
-    cs.drawPoint(M, "M", true, "black");
+    cs.drawPositionVector(u, "u", true, true, "blue");
+    cs.drawPositionVector(v, "v", true, true, "green");
+    //cs.drawPositionVector(v2, "v2", true, true, "lightgreen");
+    //cs.drawLine(v2.sub(u),u,"coral");
 }
 
 // event listener for canvas size changes

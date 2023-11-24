@@ -18,16 +18,32 @@ class CartesianCoordinateSystem2D {
     context = null;
     canvas = null;
 
+    #isColor = (strColor) => {
+        const s = new Option().style;
+        s.color = strColor;
+        return s.color !== '';
+      }
+
     drawPositionVector(v, name ="", showName = true, showCoords = false, color = "black") {
         let from = this.origin;
         let to = this.#transformToPixel(v);
-        this.#drawVector(to, from, color, showCoords, showName, name, v);
+        if (this.#isColor(color)) {
+            this.#drawVector(to, from, color, showCoords, showName, name, v);
+        }
+        else {
+            console.error("Color name is not a valid html color.")
+        }
     }
 
     drawVector(v, origin, name ="", showName = true, showCoords = false, color = "black") {
         let from = this.#transformToPixel(origin);
         let to = this.#transformToPixel(v.add(origin));
-        this.#drawVector(to, from, color, showCoords, showName, name, v);
+        if (this.#isColor(color)) {
+            this.#drawVector(to, from, color, showCoords, showName, name, v);
+        }
+        else {
+            console.error("Color name is not a valid html color.")
+        }
     }
 
     #drawVector(to, from, color, showCoords, showName, name, v) {
@@ -63,6 +79,17 @@ class CartesianCoordinateSystem2D {
         this.drawPositionVector(new Vector2D(0,1),"y");
     };
 
+    drawLine(v, origin, color = "black") {
+        let from = this.#transformToPixel(origin);
+        let to = this.#transformToPixel(v.add(origin));
+        if (this.#isColor(color)) {
+            this.#drawLine(from, to, color);
+        }
+        else {
+            console.error("Color name is not a valid html color.")
+        }
+    }
+
     #drawLine(from, to, color = "black") {
         this.context.beginPath();
         this.context.lineWidth = this.scale / 10;
@@ -73,24 +100,34 @@ class CartesianCoordinateSystem2D {
     }
     
     drawGrid(spacing, color = "black") {
-        for (let i = 0; i < this.canvas.width; i += spacing) {
-            this.#drawLine(new Vector2D(i, 0), new Vector2D(i, this.canvas.height), color);
+        if (this.#isColor(color)) {
+            for (let i = 0; i < this.canvas.width; i += spacing) {
+                this.#drawLine(new Vector2D(i, 0), new Vector2D(i, this.canvas.height), color);
+            }
+            for (let i = 0; i < this.canvas.height; i += spacing) {
+                this.#drawLine(new Vector2D(0, i), new Vector2D(this.canvas.width, i), color);
+            }
         }
-        for (let i = 0; i < this.canvas.height; i += spacing) {
-            this.#drawLine(new Vector2D(0, i), new Vector2D(this.canvas.width, i), color);
-        }
+        else {
+            console.error("Color name is not a valid html color.")
+        }    
     }
 
     drawPoint(v, name = "", showCoords = false, color = "#" + Math.floor(Math.random()*16777215).toString(16)) {
-        let p = new Vector2D(this.origin.x + this.baseX.scale(v.x).x,
-                              this.origin.y + this.baseY.scale(v.y).y);
-        this.context.beginPath();
-        this.context.fillStyle = color;
-        this.context.strokeStyle = color;
-        this.context.arc(p.x, p.y, 5, 0, 2 * Math.PI);
-        if (showCoords) {
-            this.context.fillText(name + "(" + v.x.toFixed(2) + ", " + v.y.toFixed(2) + ")", p.x + 10, p.y - 10);
+        if (this.#isColor(color)) {
+            let p = new Vector2D(this.origin.x + this.baseX.scale(v.x).x,
+                                this.origin.y + this.baseY.scale(v.y).y);
+            this.context.beginPath();
+            this.context.fillStyle = color;
+            this.context.strokeStyle = color;
+            this.context.arc(p.x, p.y, 5, 0, 2 * Math.PI);
+            if (showCoords) {
+                this.context.fillText(name + "(" + v.x.toFixed(2) + ", " + v.y.toFixed(2) + ")", p.x + 10, p.y - 10);
+            }
+            this.context.fill();
         }
-        this.context.fill();
+        else {
+            console.error("Color name is not a valid html color.")
+        }
     }
 }

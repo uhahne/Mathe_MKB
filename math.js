@@ -15,6 +15,16 @@ class Vector2D {
     scale(s) {
         return new Vector2D(this.x * s, this.y * s);
     }
+
+    sub(v) {
+        return new Vector2D(this.x - v.x, this.y - v.y);
+    }
+
+    dot(v) {
+        return this.x*v.x + this.y*v.y;
+    }
+
+    //TODO: implement length()
 }
 
 
