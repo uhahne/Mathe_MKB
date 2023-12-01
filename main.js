@@ -11,14 +11,14 @@ function drawStuff() {
     let w = u.add(v);
     let w2 = u.sub(v);
     
-    //TODO let s = u.dot(v)/v.length()**2;
-    //let v2 = v.scale(s);
+    let s = u.dot(v)/v.length()**2;
+    let v2 = v.scale(s);
     
 
     cs.drawPositionVector(u, "u", true, true, "blue");
     cs.drawPositionVector(v, "v", true, true, "green");
-    //cs.drawPositionVector(v2, "v2", true, true, "lightgreen");
-    //cs.drawLine(v2.sub(u),u,"coral");
+    cs.drawPositionVector(v2, "v2", true, true, "lightgreen");
+    cs.drawLine(v2.sub(u),u,"coral");
 }
 
 // event listener for canvas size changes

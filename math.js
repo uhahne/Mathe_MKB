@@ -24,7 +24,10 @@ class Vector2D {
         return this.x*v.x + this.y*v.y;
     }
 
-    //TODO: implement length()
+    length() {
+        let len = Math.sqrt(this.x*this.x + this.y*this.y);
+        return len;
+    }
 }
 
 
