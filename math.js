@@ -44,6 +44,15 @@ class Matrix2D {
         return this.col1.scale(v.x).add(this.col2.scale(v.y));
     }
 
+    composeWith(M) {
+        // the math: each entry is dot product of row vector with column vector
+        let row1 = new Vector2D(this.col1.x, this.col2.x);
+        let row2 = new Vector2D(this.col1.y, this.col2.y);
+        let col1new = new Vector2D(row1.dot(M.col1), row2.dot(M.col1));
+        let col2new = new Vector2D(row1.dot(M.col2), row2.dot(M.col2));
+        return new Matrix2D(col1new, col2new);
+    }
+
 
 }
 
