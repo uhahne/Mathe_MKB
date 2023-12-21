@@ -1,0 +1,115 @@
+<!-- Generated initially with ChatGPT (GPT 3.5) on 2023-12-20 https://chat.openai.com/share/b2002470-50d5-46e3-9c87-3b9e4b083d43 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flow-root;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 10;
+            margin-bottom: 10;
+        }
+
+        #image-container {
+            position: relative;
+            margin-left: 20px;
+
+        }
+
+        #image {
+            max-width: 100%;
+            max-height: 100%;
+            transform-origin: center center;
+        }
+
+        .matrix-display {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <title>2D Rotation Demo</title>
+</head>
+<body>
+<p>
+<div id="image-container">
+    <img id="image" src="nl_clown.jpg" alt="Rotating Image">
+</div>
+</p>
+<div id="matrix-display" class="matrix-display"></div>
+<div id="matrix-display2" class="matrix-display"></div>
+
+<input type="range" id="rotation-slider" min="0" max="360" step="1" value="0" />
+<script>
+    const image = document.getElementById('image');
+    const matrixDisplay = document.getElementById('matrix-display');
+    const matrixDisplay2 = document.getElementById('matrix-display2');
+    const slider = document.getElementById('rotation-slider');
+
+    // Initial rotation angle
+    let angle = 0;
+
+    // Function to update the rotation angle and matrix display
+    function updateRotation() {
+        angle = slider.value;
+        const radians = (angle * Math.PI) / 180;
+        
+        // Update image rotation
+        const rotationMatrix = [
+            [Math.cos(radians), -Math.sin(radians)],
+            [Math.sin(radians), Math.cos(radians)]
+        ];
+
+        image.style.transform = `rotate(${angle}deg)`;
+        //matrixDisplay.innerHTML = `Rotation Matrix: [ [${rotationMatrix[0].join(', ')}], [${rotationMatrix[1].join(', ')}] ]`;
+        matrixDisplay.innerHTML = `
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mrow>
+                    <mo>[</mo>
+                    <mtable>
+                        <mtr>
+                            <mtd>${rotationMatrix[0][0].toFixed(2)}</mtd>
+                            <mtd>${rotationMatrix[0][1].toFixed(2)}</mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd>${rotationMatrix[1][0].toFixed(2)}</mtd>
+                            <mtd>${rotationMatrix[1][1].toFixed(2)}</mtd>
+                        </mtr>
+                    </mtable>
+                    <mo>]</mo>
+                </mrow>
+            </math>
+        `;
+        matrixDisplay2.innerHTML = `
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mrow>
+                    <mo>[</mo>
+                    <mtable>
+                        <mtr>
+                            <mtd>cos(${angle})</mtd>
+                            <mtd>-sin(${angle})</mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd>sin(${angle})</mtd>
+                            <mtd>cos(${angle})</mtd>
+                        </mtr>
+                    </mtable>
+                    <mo>]</mo>
+                </mrow>
+            </math>
+        `;
+    
+    }
+
+    // Add event listener to the slider
+    slider.addEventListener('input', updateRotation);
+
+    // Initial update
+    updateRotation();
+</script>
+
+</body>
+</html>
