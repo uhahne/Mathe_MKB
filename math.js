@@ -26,6 +26,13 @@ class Vector2D {
         return len;
     }
 
+    rotate(angle) {
+        let col1 = new Vector2D(Math.cos(angle),Math.sin(angle));
+        let col2 = new Vector2D(-Math.sin(angle),Math.cos(angle));
+        let M = new Matrix2D(col1, col2);
+        return M.multiplyWithVector(this);
+    }
+
     transform(M) {
         // the math: M*this = M.col1*this.x + M.col2*this.y
         // assuming that M is of type Matrix2D
