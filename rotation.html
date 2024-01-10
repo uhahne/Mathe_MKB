@@ -1,10 +1,10 @@
 <!-- Generated initially with ChatGPT (GPT 3.5) on 2023-12-20 https://chat.openai.com/share/b2002470-50d5-46e3-9c87-3b9e4b083d43 -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
         body {
             display: flow-root;
             justify-content: center;
@@ -31,19 +31,20 @@
             margin-bottom: 20px;
         }
     </style>
-    <title>2D Rotation Demo</title>
-</head>
-<body>
-<p>
-<div id="image-container">
-    <img id="image" src="nl_clown.jpg" alt="Rotating Image">
-</div>
-</p>
-<div id="matrix-display" class="matrix-display"></div>
-<div id="matrix-display2" class="matrix-display"></div>
+        <title>2D Rotation Demo</title>
+    </head>
+    <body>
+        <p>
+            <div id="image-container">
+                <img id="image" src="nl_clown.jpg" alt="Rotating Image">
+            </div>
+        </p>
+        <div id="matrix-display" class="matrix-display"></div>
+        <div id="matrix-display2" class="matrix-display"></div>
 
-<input type="range" id="rotation-slider" min="0" max="360" step="1" value="0" />
-<script>
+        <input type="range" id="rotation-slider" min="0" max="360" step="1"
+            value="0" />
+        <script>
     const image = document.getElementById('image');
     const matrixDisplay = document.getElementById('matrix-display');
     const matrixDisplay2 = document.getElementById('matrix-display2');
@@ -64,7 +65,6 @@
         ];
 
         image.style.transform = `rotate(${angle}deg)`;
-        //matrixDisplay.innerHTML = `Rotation Matrix: [ [${rotationMatrix[0].join(', ')}], [${rotationMatrix[1].join(', ')}] ]`;
         matrixDisplay.innerHTML = `
             <math xmlns="http://www.w3.org/1998/Math/MathML">
                 <mrow>
@@ -111,5 +111,5 @@
     updateRotation();
 </script>
 
-</body>
+    </body>
 </html>
