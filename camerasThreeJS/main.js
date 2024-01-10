@@ -15,7 +15,7 @@ const right = 1 * aspect;
 const top = 1;
 const bottom = -1;
 const near = 1;
-const far = 100;
+const far = 4;
 const cameraOrtho = new THREE.OrthographicCamera(left, right, top, bottom, near, far);
 const fovy = 90;
 const cameraPerspective = new THREE.PerspectiveCamera(fovy, aspect, near, far);
@@ -140,7 +140,7 @@ function setupCamera(cam) {
     cam.rotation.set(0, 0, 0);
     cam.position.x = 0;
     cam.position.y = 0;
-    cam.position.z = 3;
+    cam.position.z = 2;
 }
 
 function setupControls(ctrl) {

@@ -43,7 +43,8 @@ For most of those interactions the corresponding transformation matrix is printe
 The code is demonstrated in the lecture in order to explain how the projection matrices for both orthographic and perspective cameras are defined. It is highly recommended to change the code in order to understand the topic. Here are the most important lines of code listed:
 - Change the screen size in *line 4* if your monitor resp. browser window is not large enough to display 1000 by 1000 pixels.
 - The camera parameters are defined in *lines 12ff*.
-  - Note that the camera position and orientation is set in the function `setupCamera()` to z=3 so that the cube object which is placed in the origin can be seen. The camera parameter `rotation` is set to `(0,0,0)` which is the default setting and makes the camera "look" towards the negative z-axis.
+  - The values for `left, right, top, bottom, near` and `far` resp. `aspect` and `fovy` are set as numbers that makes it easy to calculate during the lecture. 
+  - Note that the camera position and orientation is set in the function `setupCamera()` to z=2 so that the cube object which is placed in the origin can be seen. The camera parameter `rotation` is set to `(0,0,0)` which is the default setting and makes the camera "look" towards the negative z-axis.
 - In the *lines 97ff* the key events are handled.
 - In *line 83* the animation loop is called and the cube is rotated if the `doAnimate` variable is `true`.
 - In *line 71* the function `printMatrix(matrix)` is defined which prints out matrix values on the console. Note that three.js internally stores matrices in column-major order. 
