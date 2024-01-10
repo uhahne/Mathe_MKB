@@ -1,2 +1,5 @@
 main_complete.js
 math_complete.js
+
+node_modules
+package-lock.json
