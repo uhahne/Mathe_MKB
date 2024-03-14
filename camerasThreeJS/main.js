@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const fixedScreenSize = 1000;
+const fixedScreenSize = 800;
 var canvasSizeIsFixed = true;
 let SCREEN_WIDTH = window.innerWidth;
 let SCREEN_HEIGHT = window.innerHeight;
@@ -39,6 +39,14 @@ const geometry = new THREE.BoxGeometry();
 const material = colors.map(color => new THREE.MeshBasicMaterial({ color }));
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
+
+scene.add( new THREE.AxesHelper(1) );
+
+const sphereGeometry = new THREE.SphereGeometry(1, 8 , 8);
+const sphereMaterial = new THREE.MeshBasicMaterial({ wireframe: false,
+color: 0x2211dd });
+const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+//scene.add(sphere);
 
 // White directional light at half intensity shining from the top.
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
@@ -140,7 +148,7 @@ function setupCamera(cam) {
     cam.rotation.set(0, 0, 0);
     cam.position.x = 0;
     cam.position.y = 0;
-    cam.position.z = 2;
+    cam.position.z = 3;
 }
 
 function setupControls(ctrl) {
