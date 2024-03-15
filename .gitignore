@@ -4,3 +4,6 @@ math_complete.js
 node_modules
 package-lock.json
 main_exam.js
+test-*.js
+main_start.js
+math_start.js

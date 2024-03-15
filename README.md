@@ -1,5 +1,5 @@
 # Mathematische Grundlagen von Computergrafik und Gestaltung
-This repository contains supporting code for the lecture MaGrCGGe (MKB2) in the winter term 2023/24
+This repository contains supporting code for the lectures MaGrCGGe (MKB2) and STEM1 (GMB) in the summer term 2024
 
 ## Usage
 The code has been developed and demonstrated using [Visual Studio Code](https://code.visualstudio.com/download). Settings and extension recommendations are committed. Make yourself familiar with the [terminal in VS Code](https://code.visualstudio.com/docs/terminal/basics).

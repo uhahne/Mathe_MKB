@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const fixedScreenSize = 800;
+const fixedScreenSize = 1000;
 var canvasSizeIsFixed = true;
 let SCREEN_WIDTH = window.innerWidth;
 let SCREEN_HEIGHT = window.innerHeight;

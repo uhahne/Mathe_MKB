@@ -37,7 +37,7 @@ class CartesianCoordinateSystem2D {
 
     drawVector(v, origin, name ="", showName = true, showCoords = false, color = "black") {
         let from = this.#transformToPixel(origin);
-        let to = this.#transformToPixel(v.add(origin));
+        let to = this.#transformToPixel(v.copy().add(origin));
         if (this.#isColor(color)) {
             this.#drawVector(to, from, color, showCoords, showName, name, v);
         }
@@ -69,8 +69,8 @@ class CartesianCoordinateSystem2D {
     }
 
     #transformToPixel(origin) {
-        return new Vector2D(this.origin.x + this.baseX.scale(origin.x).x,
-            this.origin.y + this.baseY.scale(origin.y).y);
+        return new Vector2D(this.origin.x + this.baseX.copy().scale(origin.x).x,
+            this.origin.y + this.baseY.copy().scale(origin.y).y);
     }
 
     drawBaseAxes() {
@@ -81,7 +81,7 @@ class CartesianCoordinateSystem2D {
 
     drawLine(v, origin, color = "black") {
         let from = this.#transformToPixel(origin);
-        let to = this.#transformToPixel(v.add(origin));
+        let to = this.#transformToPixel(v.copy().add(origin));
         if (this.#isColor(color)) {
             this.#drawLine(from, to, color);
         }
@@ -115,8 +115,8 @@ class CartesianCoordinateSystem2D {
 
     drawPoint(v, name = "", showCoords = false, color = "#" + Math.floor(Math.random()*16777215).toString(16)) {
         if (this.#isColor(color)) {
-            let p = new Vector2D(this.origin.x + this.baseX.scale(v.x).x,
-                                this.origin.y + this.baseY.scale(v.y).y);
+            let p = new Vector2D(this.origin.x + this.baseX.copy().scale(v.x).x,
+                                this.origin.y + this.baseY.copy().scale(v.y).y);
             this.context.beginPath();
             this.context.fillStyle = color;
             this.context.strokeStyle = color;
