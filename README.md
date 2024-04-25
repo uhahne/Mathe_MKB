@@ -4,6 +4,9 @@ This repository contains supporting code for the lectures MaGrCGGe (MKB2) and ST
 ## Usage
 The code has been developed and demonstrated using [Visual Studio Code](https://code.visualstudio.com/download). Settings and extension recommendations are committed. Make yourself familiar with the [terminal in VS Code](https://code.visualstudio.com/docs/terminal/basics).
 
+## Vector arithmetics
+Open [myP5arrow/index.html](./myP5arrow/index.html) using the live server extension. You can draw two arrows and display their sum or difference.
+
 ## Vector and matrix calculus in 2D
 Open [index.html](./index.html) using the live server extension. Change the ```drawStuff()``` method in [main.js](./main.js) in order to experiment with vectors and matrices in 2D. The implementation of the mathematical functions (add, scale, ...) is done in [math.js](./math.js).
 
