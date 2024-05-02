@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p5.js vector example</title>
+    <style>
+    .vec-output {
+      width: 570px; /* or whatever width you want. */
+      max-width: 570px; /* or whatever width you want. */
+      display: inline-block;
+      padding: 15px;
+      background-color: #1b1b1b;
+      color: antiquewhite;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-size: large;
+    }
+    #dot {
+      color: #FF50FF
+    }
+  </style>
+    <script src="../p5/p5.min.js"></script>
+    <!-- <script src="../addons/p5.sound.js"></script> -->
+    <script src="sketch.js" defer></script>
+  </head>
+
+  <body>
+    <main>
+    </main>
+    <div class="vec-output">
+      <p>Click and drag to draw two arrows. Press d to compute dot product and
+        visualize projection, r to reset.</p>
+      <p>Vector v1:</p><div id="vec1"> - </div>
+      <p>Vector v2:</p><div id="vec2"> - </div>
+      <p>Dot product projection:</p><div id="dot"> - </div>
+    </div>
+  </body>
+
+</html>

@@ -7,6 +7,8 @@ The code has been developed and demonstrated using [Visual Studio Code](https://
 ## Vector arithmetics
 Open [myP5arrow/index.html](./myP5arrow/index.html) using the live server extension. You can draw two arrows and display their sum or difference.
 
+Open [myP5arrowDot/index.html](./myP5arrowDot/index.html) using the live server extension. You can draw two arrows and display a projection of one onto another that uses the dot product.
+
 ## Vector and matrix calculus in 2D
 Open [index.html](./index.html) using the live server extension. Change the ```drawStuff()``` method in [main.js](./main.js) in order to experiment with vectors and matrices in 2D. The implementation of the mathematical functions (add, scale, ...) is done in [math.js](./math.js).
 
