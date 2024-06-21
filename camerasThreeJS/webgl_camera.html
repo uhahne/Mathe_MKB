@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - cameras</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			b {
+				color: lightgreen;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - cameras<br/>
+		<b>O</b> orthographic <b>P</b> perspective
+		</div>
+
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "../build/three.module.js",
+					"three/addons/": "./jsm/"
+				}
+			}
+		</script>
+
+		<script type="module">
+
+			import * as THREE from 'three';
+
+			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+			let SCREEN_WIDTH = window.innerWidth;
+			let SCREEN_HEIGHT = window.innerHeight;
+			let aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+
+			let container, stats;
+			let camera, scene, renderer, cube;
+			let cameraRig, activeCamera, activeHelper;
+			let cameraPerspective, cameraOrtho;
+			let cameraPerspectiveHelper, cameraOrthoHelper;
+			const frustumSize = 2;
+
+			init();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				scene = new THREE.Scene();
+
+				//
+
+				camera = new THREE.PerspectiveCamera( 50, 0.5 * aspect, 1, 100 );
+                camera.position.x = 3;
+                camera.position.y = -4;
+				camera.position.z = 20;
+                camera.rotation.x = 0.2;
+                camera.rotation.y = 0.2;
+				//camera.position.z = 25;
+                const left = -1 * 0.5 * aspect;
+                const right = 1 * 0.5 * aspect;
+                const top = 1;
+                const bottom = -1;
+                const near = 1;
+                const far = 4;
+                cameraOrtho = new THREE.OrthographicCamera(left, right, top, bottom, near, far);
+                const fovy = 90;
+                cameraPerspective = new THREE.PerspectiveCamera(fovy, 0.5*aspect, near, far);
+                setupCamera(cameraPerspective);
+                setupCamera(cameraOrtho);
+				
+				cameraPerspectiveHelper = new THREE.CameraHelper( cameraPerspective );
+				scene.add( cameraPerspectiveHelper );
+
+				cameraOrthoHelper = new THREE.CameraHelper( cameraOrtho );
+				scene.add( cameraOrthoHelper );
+
+				//
+
+				activeCamera = cameraPerspective;
+				activeHelper = cameraPerspectiveHelper;
+
+				cameraRig = new THREE.Group();
+
+				cameraRig.add( cameraPerspective );
+				cameraRig.add( cameraOrtho );
+
+				scene.add( cameraRig );
+
+				//
+
+				const colors = [0x00ffff, 0x00ff00, 0x0000ff, 0xffff00, 0xff0000, 0xff00ff];
+
+                const boxGeometry = new THREE.BoxGeometry();
+                const material = colors.map(color => new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide }));
+                cube = new THREE.Mesh(boxGeometry, material);
+                //cube.position.z = -3;
+				//scene.add(cube);
+
+                scene.add( new THREE.AxesHelper(1) );
+                cameraRig.add( cube );
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+				renderer.setAnimationLoop( animate );
+				container.appendChild( renderer.domElement );
+
+				renderer.setScissorTest( true );
+
+				// controls
+                let orthoControls = new OrbitControls(cameraOrtho, renderer.domElement);
+                let perspControls = new OrbitControls(cameraPerspective, renderer.domElement);
+                setupControls(orthoControls);
+                setupControls(perspControls);
+
+                let controls = orthoControls;
+                controls.listenToKeyEvents(window); // optional
+
+				window.addEventListener( 'resize', onWindowResize );
+				document.addEventListener( 'keydown', onKeyDown );
+
+			}
+
+			//
+
+			function onKeyDown( event ) {
+
+				switch ( event.keyCode ) {
+
+					case 79: /*O*/
+
+						activeCamera = cameraOrtho;
+						activeHelper = cameraOrthoHelper;
+
+						break;
+
+					case 80: /*P*/
+
+						activeCamera = cameraPerspective;
+						activeHelper = cameraPerspectiveHelper;
+
+						break;
+
+				}
+
+			}
+
+			//
+
+			function onWindowResize() {
+
+				SCREEN_WIDTH = window.innerWidth;
+				SCREEN_HEIGHT = window.innerHeight;
+				aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+
+				renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+
+				camera.aspect = 0.5 * aspect;
+				camera.updateProjectionMatrix();
+
+				//cameraPerspective.aspect = 0.5 * aspect;
+				//cameraPerspective.updateProjectionMatrix();
+
+				//cameraOrtho.left = - 0.5 * frustumSize * aspect / 2;
+				//cameraOrtho.right = 0.5 * frustumSize * aspect / 2;
+				//cameraOrtho.top = frustumSize / 2;
+				//cameraOrtho.bottom = - frustumSize / 2;
+				//cameraOrtho.updateProjectionMatrix();
+
+			}
+
+			//
+
+			function animate() {
+
+				render();
+
+			}
+
+
+			function render() {
+
+				const r = Date.now() * 0.0005;
+
+				if ( activeCamera === cameraPerspective ) {
+
+					//cameraPerspective.fov = 35 + 30 * Math.sin( 0.5 * r );
+					//cameraPerspective.far = mesh.position.length();
+					cameraPerspective.updateProjectionMatrix();
+
+					cameraPerspectiveHelper.update();
+					cameraPerspectiveHelper.visible = true;
+
+					cameraOrthoHelper.visible = false;
+
+				} else {
+
+					//cameraOrtho.far = mesh.position.length();
+					//cameraOrtho.updateProjectionMatrix();
+
+					cameraOrthoHelper.update();
+					cameraOrthoHelper.visible = true;
+
+					cameraPerspectiveHelper.visible = false;
+
+				}
+
+				cameraRig.lookAt( cube.position );
+
+				//
+
+				activeHelper.visible = false;
+
+				renderer.setClearColor( 0x000000, 1 );
+				renderer.setScissor( 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT );
+				renderer.setViewport( 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT );
+				renderer.render( scene, activeCamera );
+
+				//
+
+				activeHelper.visible = true;
+
+				renderer.setClearColor( 0x111111, 1 );
+				renderer.setScissor( SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT );
+				renderer.setViewport( SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT );
+				renderer.render( scene, camera );
+
+			}
+
+            function setupCamera(cam) {
+                cam.rotation.set(0, 0, 0);
+                cam.position.x = 0;
+                cam.position.y = 0;
+                cam.position.z = 3;
+            }
+
+            function setupControls(ctrl) {
+                //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
+
+                ctrl.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+                ctrl.dampingFactor = 0.05;
+
+                ctrl.screenSpacePanning = false;
+
+                ctrl.minDistance = 1;
+                ctrl.maxDistance = 5;
+
+                ctrl.maxPolarAngle = Math.PI;
+            }
+
+		</script>
+
+	</body>
+</html>

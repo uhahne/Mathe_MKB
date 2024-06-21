@@ -34,17 +34,21 @@ cd camerasThreeJS
 npx vite
 ```
 This starts a local vite server. If everything went well, you'll see a URL like http://localhost:5173 appear in your terminal, and can open that URL to see your web application. Every time the code is changed and saved, the page is reloaded automatically. You can stop the server by pressing Ctrl-C in the terminal.
+### Example #1
+There are two examples in the [camerasThreeJS folder](./camerasThreeJS/):
 
-### Usage
+[camerasThreeJS/index.html](./camerasThreeJS/index.html) calls the [main.js](./camerasThreeJS/main.js) script and renders a cube either in orthographic or perspective projection.
+
+#### Usage
 The application renders a colored cube on the screen with a fixed size of 1000 by 1000 pixels using a perspective camera. There are the following interactions possible:
-- [Orbit controls](https://threejs.org/docs/index.html#examples/en/controls/OrbitControls) to change the camera. You can rotate the cube with the left mouse button. Note that mathematically the camera is orbiting the cube. You can translate the camera with the arrow keys. It is also possible to zoom with the mouse wheel.
+- [Orbit controls](https://threejs.org/docs/index.html#examples/en/controls/OrbitControls) to change the camera. You can rotate the cube with the left mouse button. Note that mathematically the camera is orbiting the cube. You can translate the camera by holding the shift key while clicking the left mouse button and moving the mouse. It is also possible to zoom with the mouse wheel.
 - Pressing 'o' switches to an orthographic camera.
 - Pressing 'p' switches to an perspective camera.
 - Pressing 'f' switches between the fixed screen size and window screen size.
 - Pressing 'q' starts and stops a rotation of the cube.
 For most of those interactions the corresponding transformation matrix is printed on the console. Open your browsers developer tools (usually F12) to see the matrix values.
 
-### Code hints
+#### Code hints for main.js
 The code is demonstrated in the lecture in order to explain how the projection matrices for both orthographic and perspective cameras are defined. It is highly recommended to change the code in order to understand the topic. Here are the most important lines of code listed:
 - Change the screen size in *line 4* if your monitor resp. browser window is not large enough to display 1000 by 1000 pixels.
 - The camera parameters are defined in *lines 12ff*.
@@ -54,3 +58,10 @@ The code is demonstrated in the lecture in order to explain how the projection m
 - In *line 83* the animation loop is called and the cube is rotated if the `doAnimate` variable is `true`.
 - In *line 71* the function `printMatrix(matrix)` is defined which prints out matrix values on the console. Note that three.js internally stores matrices in column-major order. 
 
+### Example #2
+The second example is inspired from the [three.js WebGL camera example](https://threejs.org/examples/webgl_camera.html). After running `npx vite` navgiate to [webgl_camera.html](http://127.0.0.1:5173/webgl_camera.html) (check the port, if this link does not work).
+
+The application shows a side by side comparison of the rendered image (left) and how the camera space is defined (right). The scene can also be changed with the [Orbit controls](https://threejs.org/docs/index.html#examples/en/controls/OrbitControls) and you can switch between orthographic and perspective camera using the keys `o` and `p` as in the other example.
+
+#### Code hints to wbgl_camera.html
+Here the JavaScript code is embedded in the html file. This file also refers to the CSS file [main.css](./camerasThreeJS/main.css) so that the layout is a bit nicer.
