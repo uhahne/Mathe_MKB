@@ -7,6 +7,14 @@ function drawStuff() {
     let cs = createAndDrawCoordinateSystem();
     
     // add new vectors here
+    let vec1 = new Vector2D(1,3);
+    let vec2 = new Vector2D(2,2);
+    let vec3 = vec1.sub(vec2);
+
+    // draw vectors here
+    cs.drawPositionVector(vec1, "vec1", true, true, "blue");
+    cs.drawPositionVector(vec2, "vec2", true, true, "red");
+    cs.drawPositionVector(vec3, "vec1-vec2", true, true, "green");
 }
 
 // event listener for canvas size changes

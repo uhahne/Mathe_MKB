@@ -15,4 +15,8 @@ class Vector2D {
     add(v) {
         return new Vector2D(this.x+v.x, this.y+v.y);
     }
+
+    sub(v) {
+        return new Vector2D(this.x - v.x, this.y - v.y);
+    }
 }
