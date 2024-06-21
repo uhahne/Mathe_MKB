@@ -36,8 +36,30 @@ document.body.appendChild(renderer.domElement);
 const colors = [0x00ffff, 0x00ff00, 0x0000ff, 0xffff00, 0xff0000, 0xff00ff];
 
 const geometry = new THREE.BoxGeometry();
-const material = colors.map(color => new THREE.MeshBasicMaterial({ color }));
+const material = colors.map(color => new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide }));
 const cube = new THREE.Mesh(geometry, material);
+
+// Function to create a label
+function createLabel(text) {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    context.font = '48px Arial';
+    context.fillStyle = 'white';
+    context.fillText(text, 0, 48);
+    
+    const texture = new THREE.CanvasTexture(canvas);
+    const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+    const sprite = new THREE.Sprite(spriteMaterial);
+    
+    sprite.scale.set(0.5, 0.5, 0.5); // Scale the sprite
+    return sprite;
+}
+
+// Create and position the label
+const label = createLabel('A');
+const offset = 0.2
+label.position.set(0.5 + offset, 0.5, 0.5); // Adjust the position for the top front corner
+cube.add(label);
 scene.add(cube);
 
 scene.add( new THREE.AxesHelper(1) );
